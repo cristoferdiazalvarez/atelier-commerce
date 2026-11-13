@@ -10,6 +10,7 @@ assert.equal(response.status, 200, 'Public home must work without owner authenti
 await mkdir('test-results/hosted', { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome' });
 const results = [];
+let activePage;
 try {
   for (const [name, viewport] of [
     ['desktop', { width: 1440, height: 1000 }],
@@ -17,8 +18,9 @@ try {
   ]) {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
+    activePage = page;
     await page.goto(base, { waitUntil: 'networkidle' });
-    await page.getByRole('heading', { name: 'La elegancia de lo esencial.' }).waitFor();
+    await page.getByRole('heading', { name: /La elegancia\s*de lo\s*esencial\./ }).waitFor();
     assert.equal(
       await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
       false,
@@ -48,6 +50,8 @@ try {
     assert.equal(selected, true, 'The demo product must have an available variant.');
     await page.getByRole('button', { name: 'Añadir a la bolsa' }).click();
     await page.getByRole('link', { name: 'Ir a la bolsa' }).click();
+    await page.waitForURL(`${base}/cart`);
+    await page.getByRole('heading', { name: 'Tu bolsa.' }).waitFor();
     await page.reload();
     await page.getByRole('heading', { name: 'Blazer esencial' }).waitFor();
     await page.getByRole('link', { name: 'Entrar o crear cuenta' }).click();
@@ -135,6 +139,17 @@ try {
   console.log(
     'Hosted acceptance passed; only fictional customer/demo-order data was created. No payment was attempted.',
   );
+} catch (error) {
+  if (activePage && !activePage.isClosed()) {
+    console.error(
+      JSON.stringify({
+        failedUrl: activePage.url(),
+        headings: await activePage.locator('h1').allTextContents(),
+      }),
+    );
+    await activePage.screenshot({ path: 'test-results/hosted/failure.png', fullPage: true });
+  }
+  throw error;
 } finally {
   await browser.close();
 }

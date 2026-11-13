@@ -5,7 +5,7 @@
 The existing Atelier Commerce application has been extended and validated in place. BusinessOS was not modified. The authenticated GitHub owner was verified as `cristoferdiazalvarez`. Public repository creation, commits and push are now authorized; the owner has now explicitly authorized a separate Vercel Hobby project and Neon Free database, without cards, paid services or changes to BusinessOS.
 
 Repository target: https://github.com/cristoferdiazalvarez/atelier-commerce
-Public application: **not deployed**. No hosting resources, paid services or billing have been created.
+Public application: **https://atelier-commerce-two.vercel.app**. Public HTTPS, actual Neon-backed shopping and role/session protections passed in desktop and mobile Chrome viewports. Only the authorized standalone Vercel Hobby project and Neon Free database were created. No paid plan, payment card, live payment or BusinessOS resource was modified.
 
 ## Completed functionality
 
@@ -41,12 +41,22 @@ Public application: **not deployed**. No hosting resources, paid services or bil
 - The staged/tracked-file review covered 100 files and reported no credential patterns or matches against private local environment values. `.env`, `.local`, node_modules, .next, generated reports, logs and TypeScript cache remained ignored. Screenshot review showed only fictional demonstration data.
 - Environment examples default to no administrator credentials and public admin writes disabled. The final handoff documentation/configuration commit also triggers the same CI workflow; its current status is visible in the repository Actions tab.
 
-## Deployment authorization and account access
+## Public deployment — completed
 
-1. **Authorization received:** create a separate `atelier-commerce` Vercel Hobby project and Neon Free database, reusing existing personal accounts where possible. Do not request this authorization again. BusinessOS must remain untouched; payment cards and paid upgrades remain forbidden.
-2. **Current access prerequisite:** neither provider has a connected integration or an available local CLI session/API credential in this environment. Vercel and Neon integrations were discovered and offered for secure account installation/connection. Resource creation and deployment cannot be performed until access to the intended accounts is available. No hosting resource has been created.
-3. After account access is confirmed, follow docs/DEPLOYMENT.md: pooled/direct URLs, HTTPS APP_URL, DEMO_LOGIN=true, DEMO_CHECKOUT=true, ALLOW_ADMIN_WRITES=false, private CRON_SECRET; migrate/seed; deploy and verify the actual internet URL.
-4. Optionally provide Stripe **TEST** credentials privately if real Stripe test-account checkout verification is desired. They are unnecessary for the unpaid public demo.
+- The owner explicitly authorized independent free resources and then completed a project-local Neon browser login. The earlier account-access blocker was resolved; there is no remaining hosting authorization request.
+- Existing CLI account access was located outside global defaults. Vercel Hobby and Neon Free were verified through authenticated provider APIs before creation. BusinessOS credential files and deployed resources were not modified.
+- Created only `atelier-commerce` in Vercel and `atelier-commerce` in Neon: PostgreSQL 17, AWS Frankfurt, lowest 0.25-CU range and the Free plan's default suspension. Neon rejected an explicit suspend-interval override; it was omitted without changing plans.
+- Applied both versioned migrations and the fictional catalog seed on the new database. No public administrator was seeded. Direct migration and pooled runtime URLs were injected privately; production variables are encrypted in Vercel. No Stripe keys were configured.
+- The first build was protected while configuration completed. The provider assigned `atelier-commerce-two.vercel.app`; APP_URL was set to that actual HTTPS origin before enabling public access. The runtime is pinned to Node 22 in project settings and package metadata.
+- Production flags: DEMO_LOGIN=true, DEMO_CHECKOUT=true and ALLOW_ADMIN_WRITES=false. Daily maintenance is protected by a private CRON_SECRET; anonymous invocation returned 401.
+- `npm run verify:hosted -- https://atelier-commerce-two.vercel.app` passed both public Chrome viewport profiles. Checks covered anonymous HTTP 200/trusted TLS, home/catalog/search, variant selection, bag/favorite persistence, isolated CUSTOMER demo login, HttpOnly/Secure/SameSite=Lax cookies, WELCOME10 total of EUR 275.81 for the seeded blazer, DEMO_UNPAID order/history, emptied bag, customer/anonymous admin denials, foreign-origin denial, protected maintenance and revoked-session replay after logout. Only fictional data was created; no payment was attempted.
+- Actual public home, checkout and order screenshots were captured. The diagnostic report and browser artifacts remain ignored in test-results/hosted. The private local administration screenshot is labeled separately.
+- Hosted acceptance uses an explicit cart URL wait before reloading and tolerates the actual accessible title line break. The initial strict title/navigation checks were corrected before recording a pass.
+- Latest previously confirmed source CI: https://github.com/cristoferdiazalvarez/atelier-commerce/actions/runs/43449809020 (success, 16 unit/integration and 26 E2E checks). Final deployment/documentation commits trigger the same workflow; see the current result in the repository Actions tab.
+
+## Remaining optional work
+
+Stripe account-network verification still requires private TEST credentials; the public unpaid demo is complete without them. Operator monitoring, fictional-data retention/replenishment and the documented production-commerce exclusions remain in docs/LIMITATIONS.md. No paid upgrade or real transaction is authorized.
 
 Docker execution is unverified because Docker is unavailable on this host. Physical-device/Safari review, production email delivery, real commerce/refunds/shipping, external monitoring/backups and advanced multi-device conflict resolution are documented boundaries in docs/LIMITATIONS.md.
 

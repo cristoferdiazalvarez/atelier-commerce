@@ -5,7 +5,7 @@ The storefront, authenticated customer flow, synchronized cart/favorites, addres
 ## External verification still required
 
 - Stripe TEST network Checkout/payment and webhook delivery need private test credentials. Local tests use genuine Stripe signature verification and real PostgreSQL transactions, but do not prove a payment was processed by Stripe.
-- Free/Hobby hosting creation has been explicitly approved. A public HTTPS demo still needs secure access to the Vercel/Neon accounts; integrations are not connected and no local provider credentials are available. No hosting resource or public app URL is claimed.
+- The public HTTPS demo is deployed and verified at https://atelier-commerce-two.vercel.app on separate Hobby/Free resources. It remains subject to provider cold starts and usage limits; free hosting is not an uptime guarantee.
 - Docker is configured but cannot be executed on this host because Docker is absent. GitHub Actions results are recorded separately in PROGRESS.md after actual remote execution.
 
 ## Deliberate boundaries
@@ -18,7 +18,7 @@ The storefront, authenticated customer flow, synchronized cart/favorites, addres
 - Vercel-overwritten IP headers are trusted only when running on Vercel. Elsewhere, auth requests use a conservative shared rate bucket. Public endpoints also validate payload size, origin, role and ownership. This is not an enterprise bot/fraud system.
 - The tax model is an additive configurable demo percentage, not jurisdiction-specific tax compliance. Coupons support percentage, enabled state and expiration; redemption caps and complex promotions are not implemented.
 - Demo orders consume demo inventory. Automated local verification uses an isolated disposable database; CI uses its own PostgreSQL service. The regular development database is not reset by tests using `npm run verify:local`.
-- Daily authenticated maintenance is prepared in vercel.json; it does not run until hosting is authorized and deployed. At most 100 expired pending orders are reconciled per invocation. Late payments after released reservations remain manual exceptions, not silently fulfilled.
-- Axe checks cover selected storefront/account/bag pages in desktop/mobile Chromium. This is not full WCAG 2.2 AA certification, physical-device/Safari testing or measured field Core Web Vitals. Manual keyboard/screen-reader and performance review remain advisable.
+- Daily authenticated maintenance is deployed through vercel.json; public unauthenticated requests are denied. Scheduling frequency follows Hobby limits. At most 100 expired pending orders are reconciled per invocation. Late payments after released reservations remain manual exceptions, not silently fulfilled.
+- Axe checks cover selected storefront/account/bag pages in desktop/mobile Chromium in CI. Public deployment acceptance separately covers desktop/mobile Chrome viewport shopping and authorization. This is not full WCAG 2.2 AA certification, physical-device/Safari testing or measured field Core Web Vitals. Manual keyboard/screen-reader and performance review remain advisable.
 - Next.js may stream not-found content after HTTP headers have been sent, producing status 200 with noindex. Browser tests verify the unavailable-product screen and robots directive; this is the framework's documented streaming behavior.
 - No external backups, error monitoring, email or asset-storage service is provisioned. Dependency overrides patch transitive tooling; keep full regression checks when upgrading.

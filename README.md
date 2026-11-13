@@ -4,13 +4,15 @@ An editorial fashion storefront with a real PostgreSQL backend, variant inventor
 
 [![Verify](https://github.com/cristoferdiazalvarez/atelier-commerce/actions/workflows/ci.yml/badge.svg)](https://github.com/cristoferdiazalvarez/atelier-commerce/actions/workflows/ci.yml)
 
-**Portfolio demonstration. No real sales, deliveries or live payments.** Built as a professional full-stack project with real persistence, server authorization and repeatable checks. The public HTTPS application is not deployed yet. Free hosting creation has been authorized; secure Vercel/Neon account access is the remaining deployment prerequisite. [Deployment runbook](docs/DEPLOYMENT.md).
+**[Open the live HTTPS demo](https://atelier-commerce-two.vercel.app)** — choose “Explorar con una cuenta demo” to start an isolated visitor session.
+
+**Portfolio demonstration. No real sales, deliveries or live payments.** Deployed on Vercel Hobby with a separate Neon Free PostgreSQL database. Public desktop/mobile shopping acceptance passed against the real deployment: server totals, a discounted unpaid demo order, persistent bag/favorites, Secure cookies, permission denials and logout/session revocation. No card is needed; administration writes are disabled. [Deployment and operations](docs/DEPLOYMENT.md).
 
 ![ATELIER desktop storefront](docs/home-desktop.png)
 
 ## Stack
 
-Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4 with an original CSS design system, Prisma 6 / PostgreSQL, Zod, Zustand, Recharts, Stripe Test SDK, Vitest, Playwright, Docker Compose and GitHub Actions. Versions resolved in `package-lock.json` are authoritative. Node 22.13+ is recommended.
+Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4 with an original CSS design system, Prisma 6 / PostgreSQL, Zod, Zustand, Recharts, Stripe Test SDK, Vitest, Playwright, Docker Compose and GitHub Actions. Versions resolved in `package-lock.json` are authoritative. Use Node 22 LTS (22.13+); production and CI are pinned to the 22.x major.
 
 ## Run locally
 
@@ -64,6 +66,7 @@ npm run build
 npm run test:e2e         # Chrome desktop/mobile workflows and axe accessibility checks
 npm run format:check
 npm run security:scan    # Scan staged/tracked files before committing
+npm run verify:hosted -- https://atelier-commerce-two.vercel.app # Creates fictional demo orders
 ```
 
 For a complete isolated local verification, start `npm run db:local`, then run `npm run verify:local`. It creates, migrates, seeds and drops a disposable database on local PostgreSQL and tests a production server on port 3100, protecting normal development records.
@@ -98,6 +101,10 @@ Payments are optional. The unpaid demo flow uses the same server-price validatio
 Screenshots below are real captures of the running application, not mockups.
 
 ![Catalog](docs/catalog-desktop.png)
+
+![Verified public demo checkout](docs/checkout-demo.png)
+
+Private local administration (public production writes are disabled):
 
 ![Private administration](docs/admin-desktop.png)
 

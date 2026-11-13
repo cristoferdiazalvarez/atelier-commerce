@@ -1,6 +1,29 @@
 # Free HTTPS demo deployment
 
-Status: **authorized, awaiting account access; not deployed**. The owner has explicitly authorized creating a separate Vercel Hobby project and Neon Free database. GitHub publication is already complete. Neither provider is currently connected and no local CLI/API credentials are available. Install/connect the Vercel and Neon integrations using the intended existing personal accounts to continue. No card, upgrade, paid service or BusinessOS resource may be used.
+Status: **deployed and publicly verified** at https://atelier-commerce-two.vercel.app. The owner authorized creation and supplied a project-local Neon browser login. Existing Vercel account access was reused read-only; provider APIs confirmed Hobby/Free before creating independent Atelier resources. BusinessOS files, databases and deployments were not modified. No card, upgrade, paid service or live payment was activated.
+
+## Existing deployment
+
+| Resource         | Current setting                                               |
+| ---------------- | ------------------------------------------------------------- |
+| Public HTTPS app | https://atelier-commerce-two.vercel.app                       |
+| Vercel project   | atelier-commerce, Hobby, Node 22.x, Frankfurt                 |
+| Neon project     | atelier-commerce, Free, PostgreSQL 17, AWS Frankfurt          |
+| Database         | atelier; separate pooled runtime/direct migration connections |
+| Visitor access   | Isolated CUSTOMER demo identity, no shared password           |
+| Payments         | Unpaid demo only; Stripe credentials omitted                  |
+| Administration   | No public admin account; writes disabled in production        |
+| Maintenance      | Daily at 04:00 UTC, authenticated with private CRON_SECRET    |
+
+The Free account rejected overriding Neon suspension; creation succeeded using its enforced default. No account plan or billing setting was changed. Production variables were sent through authenticated HTTPS APIs and encrypted by Vercel; secrets, local credential files and browser reports were not published. Credentials remain outside Git and are not shown here.
+
+Desktop and mobile Chrome viewport acceptance passed over trusted public HTTPS using `npm run verify:hosted -- https://atelier-commerce-two.vercel.app`. It creates only fictional visitor accounts and DEMO_UNPAID orders, verifies totals/stock-backed checkout and checks cookie, ownership/session and administrative denials. See PROGRESS.md for actual observed results and known verification limits.
+
+## Future updates
+
+Select the existing Atelier projects above rather than creating replacements. The initial publication used authenticated provider APIs with only tracked source files; Git auto-deployment was not connected. An operator can authenticate the official Vercel CLI independently and link this checkout to the existing Atelier project, or use the project's existing deployment controls. Never point this checkout at a BusinessOS project.
+
+The database schema/data is provisioned separately: apply only committed migrations and idempotent fictional seeds from a private operator environment. Build/runtime startup never runs destructive resets. Do not create public admin credentials. After any deployment, repeat hosted acceptance and check the current GitHub Actions run. Two demo orders are created per acceptance run, consuming real demo stock; replenish only through controlled private operations.
 
 ## Current feasibility — checked 2026-11-13
 
@@ -16,9 +39,9 @@ Vercel Hobby cron schedules are limited to daily execution and may run within th
 
 Source: [Cron usage and pricing](https://vercel.com/docs/schedules/cron-jobs/usage-and-pricing).
 
-## Exact activation steps after secure account access
+## Reproducible provisioning reference (already completed)
 
-1. Sign in to the owner's existing Neon and Vercel personal accounts if available. Account access has not been verified or provisioned by this local build.
+1. Authenticate to the owner's existing Free/Hobby accounts. Current deployment access has already been verified; the steps below describe provisioning rather than an outstanding request to repeat it.
 2. In Neon, create an independent **Free** project `atelier-commerce`, with database `atelier`, in a region near the chosen Vercel region. Do not reuse a BusinessOS database. Copy the pooled URL for DATABASE_URL and the unpooled URL for DIRECT_URL privately.
 3. Import `cristoferdiazalvarez/atelier-commerce` into Vercel as a **new Hobby project**. Choose Next.js, project root `.`, Node 22 and `npm run build`. Disable the initial deployment until its database is migrated/seeded, or keep it protected during setup.
 4. Set production variables using `.env.production.example` as the reference:
