@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: atelier
+      POSTGRES_PASSWORD: atelier
+      POSTGRES_DB: atelier
+    ports: ['5432:5432']
+    volumes: [postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U atelier']
+      interval: 5s
+      retries: 10
+  app:
+    build: .
+    ports: ['3000:3000']
+    environment:
+      DATABASE_URL: postgresql://atelier:atelier@db:5432/atelier
+      DIRECT_URL: postgresql://atelier:atelier@db:5432/atelier
+      DEMO_LOGIN: 'true'
+      APP_URL: http://localhost:3000
+      DEMO_CHECKOUT: 'true'
+      ALLOW_ADMIN_WRITES: 'false'
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  postgres:

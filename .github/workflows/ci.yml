@@ -1,0 +1,57 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: atelier
+          POSTGRES_PASSWORD: atelier
+          POSTGRES_DB: atelier
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U atelier"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://atelier:atelier@localhost:5432/atelier
+      DIRECT_URL: postgresql://atelier:atelier@localhost:5432/atelier
+      DEMO_LOGIN: 'true'
+      E2E_PRODUCTION: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+      APP_URL: http://localhost:3000
+      DEMO_CHECKOUT: 'true'
+      ALLOW_ADMIN_WRITES: 'true'
+      ADMIN_EMAIL: admin@example.test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Generate ephemeral test administrator password
+        run: echo "ADMIN_PASSWORD=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+      - run: npm ci
+      - run: npm run db:generate
+      - run: npm run db:migrate
+      - run: npm run db:seed
+      - run: npm run security:scan
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chrome
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: test-results
