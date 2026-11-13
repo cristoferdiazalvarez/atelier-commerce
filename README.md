@@ -28,9 +28,9 @@ npm run dev
 
 Visit http://localhost:3000. Create a customer account with fictional data; select a product size and color; add to your bag; create a demo order. The optional “Explorar con una cuenta demo” button creates an isolated CUSTOMER session without a shared password. `WELCOME10` applies a 10% server-validated discount. Checkout displays server-validated totals before confirmation. Prices are in integer euro cents; VAT is added at checkout and the UI discloses this.
 
-No PostgreSQL installation? `npm run db:local` starts an isolated PostgreSQL binary with data in ignored `.local/postgres` on port **54329**. Use `postgresql://atelier:atelier@localhost:54329/atelier` for `DATABASE_URL`. This is a local development convenience, not a hosting database. Its binary packaging dependency has a prerelease version; PostgreSQL itself is version 18. Docker uses stable PostgreSQL 17.
+No PostgreSQL installation? `npm run db:local` starts an isolated PostgreSQL binary with data in ignored `.local/postgres` on port **54329**. Use `postgresql://atelier:atelier@localhost:54329/atelier` for both `DATABASE_URL` and `DIRECT_URL`. This is a local development convenience, not a hosting database. Its binary packaging dependency has a prerelease version; PostgreSQL itself is version 18. Docker uses stable PostgreSQL 17.
 
-The local workspace is already configured and seeded. Start both the isolated database and Next.js with `npm run local` (stop with Ctrl+C). `.env` contains a randomly generated private local administrator password; it is ignored by Git. Customer sign-up never grants elevated roles. Do not publish the local environment or database.
+After configuring and seeding, start both the isolated database and Next.js with `npm run local` (stop with Ctrl+C). Administrator values in the examples are blank, so the seed creates no administrator by default. Provision a private account only by supplying your own private values in ignored `.env`. Customer sign-up never grants elevated roles. Do not publish the local environment or database.
 
 ## Docker
 

@@ -32,7 +32,13 @@ Public application: **not deployed**. No hosting resources, paid services or bil
 
 ## Publication verification
 
-Security review, commit/push and actual GitHub Actions status will be recorded here after their execution. Do not interpret a prepared workflow or repository target URL as a successful remote run.
+- Public repository created: https://github.com/cristoferdiazalvarez/atelier-commerce
+- Initial application commit `c42d6d627f9a3b60a887167b86f0f50a969aed52` was pushed to main. Git uses the owner's public no-reply author address; no private email was committed.
+- Anonymous GitHub API and repository-page requests both returned HTTP 200. Public visibility, main branch and the requested technology topics were verified.
+- GitHub Actions **Verify / application passed** for that commit, including clean npm installation, PostgreSQL 17 migrations/seed, secret/artifact scan, formatting, lint, typecheck, 16 unit/integration tests, production build, Chrome installation and all 26 E2E checks.
+- Actual successful run: https://github.com/cristoferdiazalvarez/atelier-commerce/actions/runs/43444064357
+- The staged/tracked-file review covered 100 files and reported no credential patterns or matches against private local environment values. `.env`, `.local`, node_modules, .next, generated reports, logs and TypeScript cache remained ignored. Screenshot review showed only fictional demonstration data.
+- Environment examples default to no administrator credentials and public admin writes disabled. The final handoff documentation/configuration commit also triggers the same CI workflow; its current status is visible in the repository Actions tab.
 
 ## Remaining external gates
 
