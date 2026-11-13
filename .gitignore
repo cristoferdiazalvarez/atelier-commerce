@@ -12,3 +12,6 @@ test-results
 .local
 
 *.tsbuildinfo
+
+.vercel/
+.neon

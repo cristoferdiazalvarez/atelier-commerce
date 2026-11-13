@@ -19,7 +19,8 @@
     "format:check": "prettier --check .",
     "local": "node scripts/local.mjs",
     "verify:local": "node scripts/verify-local.mjs",
-    "security:scan": "node scripts/check-secrets.mjs"
+    "security:scan": "node scripts/check-secrets.mjs",
+    "verify:hosted": "node scripts/verify-hosted.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
