@@ -29,6 +29,7 @@ Public application: **not deployed**. No hosting resources, paid services or bil
 - ESLint, strict TypeScript, production build and Prettier checks passed. npm audit reported **zero vulnerabilities**.
 - Real desktop/mobile home, catalog and private-admin screenshots are included in docs. Private credentials, local PostgreSQL data, reports and logs are excluded from publication.
 - The second migration was also applied to the normal existing development database without resetting its data.
+- The local PostgreSQL launcher now closes its setup connection even when the database already exists, and the combined launcher reuses an already-running local database. A fresh npm run local startup returned HTTP 200 and its controlled shutdown was checked.
 
 ## Publication verification
 

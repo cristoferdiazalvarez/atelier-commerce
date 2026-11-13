@@ -6,18 +6,34 @@ if (!existsSync('.env')) throw new Error('Configure .env using .env.example firs
 process.loadEnvFile('.env');
 const url = new URL(process.env.DATABASE_URL);
 let database;
-if (['localhost', '127.0.0.1'].includes(url.hostname) && url.port === '54329') {
+async function databaseReady() {
+  return new Promise((resolve) => {
+    const socket = net.connect(54329, '127.0.0.1');
+    socket.setTimeout(1000);
+    socket.once('connect', () => {
+      socket.destroy();
+      resolve(true);
+    });
+    socket.once('error', () => {
+      socket.destroy();
+      resolve(false);
+    });
+    socket.once('timeout', () => {
+      socket.destroy();
+      resolve(false);
+    });
+  });
+}
+if (
+  ['localhost', '127.0.0.1'].includes(url.hostname) &&
+  url.port === '54329' &&
+  !(await databaseReady())
+) {
   database = spawn(process.execPath, ['scripts/local-db.mjs'], { stdio: 'inherit' });
   let ready = false;
   for (let i = 0; i < 100; i++) {
-    ready = await new Promise((resolve) => {
-      const socket = net.connect(54329, '127.0.0.1');
-      socket.once('connect', () => {
-        socket.destroy();
-        resolve(true);
-      });
-      socket.once('error', () => resolve(false));
-    });
+    if (database.exitCode !== null) break;
+    ready = await databaseReady();
     if (ready) break;
     await setTimeout(200);
   }

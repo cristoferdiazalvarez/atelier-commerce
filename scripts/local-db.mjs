@@ -13,10 +13,13 @@ const pg = new EmbeddedPostgres({
 });
 if (!existsSync('.local/postgres/PG_VERSION')) await pg.initialise();
 await pg.start();
+const client = pg.getPgClient('postgres');
 try {
-  await pg.createDatabase('atelier');
-} catch (error) {
-  if (!String(error).includes('already exists')) throw error;
+  await client.connect();
+  const existing = await client.query('SELECT 1 FROM pg_database WHERE datname=$1', ['atelier']);
+  if (!existing.rowCount) await client.query('CREATE DATABASE "atelier"');
+} finally {
+  await client.end();
 }
 console.log('Local PostgreSQL ready on 127.0.0.1:54329. Ctrl+C to stop.');
 for (const signal of ['SIGINT', 'SIGTERM'])
