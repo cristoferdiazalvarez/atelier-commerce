@@ -5,7 +5,7 @@ The storefront, authenticated customer flow, synchronized cart/favorites, addres
 ## External verification still required
 
 - Stripe TEST network Checkout/payment and webhook delivery need private test credentials. Local tests use genuine Stripe signature verification and real PostgreSQL transactions, but do not prove a payment was processed by Stripe.
-- A public HTTPS demo requires explicit approval to create independent Free/Hobby resources and account access. No hosting resource or public app URL is claimed.
+- Free/Hobby hosting creation has been explicitly approved. A public HTTPS demo still needs secure access to the Vercel/Neon accounts; integrations are not connected and no local provider credentials are available. No hosting resource or public app URL is claimed.
 - Docker is configured but cannot be executed on this host because Docker is absent. GitHub Actions results are recorded separately in PROGRESS.md after actual remote execution.
 
 ## Deliberate boundaries

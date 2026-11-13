@@ -2,7 +2,7 @@
 
 ## Delivery status
 
-The existing Atelier Commerce application has been extended and validated in place. BusinessOS was not modified. The authenticated GitHub owner was verified as `cristoferdiazalvarez`. Public repository creation, commits and push are now authorized; independent Vercel/Neon resource creation is not yet authorized.
+The existing Atelier Commerce application has been extended and validated in place. BusinessOS was not modified. The authenticated GitHub owner was verified as `cristoferdiazalvarez`. Public repository creation, commits and push are now authorized; the owner has now explicitly authorized a separate Vercel Hobby project and Neon Free database, without cards, paid services or changes to BusinessOS.
 
 Repository target: https://github.com/cristoferdiazalvarez/atelier-commerce
 Public application: **not deployed**. No hosting resources, paid services or billing have been created.
@@ -41,11 +41,12 @@ Public application: **not deployed**. No hosting resources, paid services or bil
 - The staged/tracked-file review covered 100 files and reported no credential patterns or matches against private local environment values. `.env`, `.local`, node_modules, .next, generated reports, logs and TypeScript cache remained ignored. Screenshot review showed only fictional demonstration data.
 - Environment examples default to no administrator credentials and public admin writes disabled. The final handoff documentation/configuration commit also triggers the same CI workflow; its current status is visible in the repository Actions tab.
 
-## Remaining external gates
+## Deployment authorization and account access
 
-1. Confirm creation of a separate `atelier-commerce` **Vercel Hobby project and Neon Free database**, reusing existing personal accounts where possible. No BusinessOS resource will be changed. No payment card or paid upgrade is permitted.
-2. Follow docs/DEPLOYMENT.md: pooled/direct URLs, HTTPS APP_URL, DEMO_LOGIN=true, DEMO_CHECKOUT=true, ALLOW_ADMIN_WRITES=false, private CRON_SECRET; migrate/seed; deploy and verify the actual internet URL.
-3. Optionally provide Stripe **TEST** credentials privately if real Stripe test-account checkout verification is desired. They are unnecessary for the unpaid public demo.
+1. **Authorization received:** create a separate `atelier-commerce` Vercel Hobby project and Neon Free database, reusing existing personal accounts where possible. Do not request this authorization again. BusinessOS must remain untouched; payment cards and paid upgrades remain forbidden.
+2. **Current access prerequisite:** neither provider has a connected integration or an available local CLI session/API credential in this environment. Vercel and Neon integrations were discovered and offered for secure account installation/connection. Resource creation and deployment cannot be performed until access to the intended accounts is available. No hosting resource has been created.
+3. After account access is confirmed, follow docs/DEPLOYMENT.md: pooled/direct URLs, HTTPS APP_URL, DEMO_LOGIN=true, DEMO_CHECKOUT=true, ALLOW_ADMIN_WRITES=false, private CRON_SECRET; migrate/seed; deploy and verify the actual internet URL.
+4. Optionally provide Stripe **TEST** credentials privately if real Stripe test-account checkout verification is desired. They are unnecessary for the unpaid public demo.
 
 Docker execution is unverified because Docker is unavailable on this host. Physical-device/Safari review, production email delivery, real commerce/refunds/shipping, external monitoring/backups and advanced multi-device conflict resolution are documented boundaries in docs/LIMITATIONS.md.
 

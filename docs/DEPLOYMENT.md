@@ -1,6 +1,6 @@
 # Free HTTPS demo deployment
 
-Status: **prepared, not deployed**. Creating GitHub's public repository is authorized. Creating Vercel/Neon hosting resources still requires the owner's separate confirmation. No card, upgrade, paid service or BusinessOS resource may be used.
+Status: **authorized, awaiting account access; not deployed**. The owner has explicitly authorized creating a separate Vercel Hobby project and Neon Free database. GitHub publication is already complete. Neither provider is currently connected and no local CLI/API credentials are available. Install/connect the Vercel and Neon integrations using the intended existing personal accounts to continue. No card, upgrade, paid service or BusinessOS resource may be used.
 
 ## Current feasibility — checked 2026-11-13
 
@@ -16,7 +16,7 @@ Vercel Hobby cron schedules are limited to daily execution and may run within th
 
 Source: [Cron usage and pricing](https://vercel.com/docs/schedules/cron-jobs/usage-and-pricing).
 
-## Exact activation steps after hosting confirmation
+## Exact activation steps after secure account access
 
 1. Sign in to the owner's existing Neon and Vercel personal accounts if available. Account access has not been verified or provisioned by this local build.
 2. In Neon, create an independent **Free** project `atelier-commerce`, with database `atelier`, in a region near the chosen Vercel region. Do not reuse a BusinessOS database. Copy the pooled URL for DATABASE_URL and the unpooled URL for DIRECT_URL privately.

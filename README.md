@@ -4,7 +4,7 @@ An editorial fashion storefront with a real PostgreSQL backend, variant inventor
 
 [![Verify](https://github.com/cristoferdiazalvarez/atelier-commerce/actions/workflows/ci.yml/badge.svg)](https://github.com/cristoferdiazalvarez/atelier-commerce/actions/workflows/ci.yml)
 
-**Portfolio demonstration. No real sales, deliveries or live payments.** Built as a professional full-stack project with real persistence, server authorization and repeatable checks. The public HTTPS application is not deployed yet; hosting creation requires separate owner approval. [Deployment runbook](docs/DEPLOYMENT.md).
+**Portfolio demonstration. No real sales, deliveries or live payments.** Built as a professional full-stack project with real persistence, server authorization and repeatable checks. The public HTTPS application is not deployed yet. Free hosting creation has been authorized; secure Vercel/Neon account access is the remaining deployment prerequisite. [Deployment runbook](docs/DEPLOYMENT.md).
 
 ![ATELIER desktop storefront](docs/home-desktop.png)
 
